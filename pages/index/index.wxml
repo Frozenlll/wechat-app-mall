@@ -49,7 +49,7 @@
       </swiper>
     </view>
     <scroll-view scroll-x>
-      <view class="category-box" style='width:{{category_box_width}}rpx;'>
+      <view class="category-box" style='width:100%;'>
         <view class="category-list" wx:for="{{categories}}" wx:key="*this">
           <view class="category-column {{activeCategoryId == item.id ? 'type-item-on' : ''}}" bindtap="tabClick" id="{{item.id}}">
             <image class="category-imgbox" src="{{item.icon}}"></image>
@@ -63,7 +63,7 @@
     <swiper class="swiper_box" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
       <block wx:for="{{banners}}" wx:key="id">
         <swiper-item>
-          <image bindtap="tapBanner" data-id="{{item.businessId}}" src="{{item.picUrl}}_m" class="slide-image" width="750rpx" height="562.5rpx" />
+          <image bindtap="tapBanner" data-id="{{item.businessId}}" src="{{item.picUrl}}_m" class="slide-image" width="750rpx" height="500rpx" />
         </swiper-item>
       </block>
     </swiper>

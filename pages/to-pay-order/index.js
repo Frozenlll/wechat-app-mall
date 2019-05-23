@@ -17,8 +17,8 @@ Page({
     coupons: [],
     youhuijine: 0, //优惠券金额
     curCoupon: null, // 当前选择使用的优惠券
-    allowSelfCollection: '0', // 是否允许到店自提
-    peisongType: 'zq' // 配送方式 kd,zq 分别表示快递/到店自取
+    allowSelfCollection: '1', // 是否允许到店自提
+    peisongType: 'kd' // 配送方式 kd,zq 分别表示快递/到店自取
   },
   onShow: function () {
     let allowSelfCollection = wx.getStorageSync('ALLOW_SELF_COLLECTION')
@@ -95,17 +95,26 @@ Page({
     if (that.data.pingtuanOpenId) {
       postData.pingtuanOpenId = that.data.pingtuanOpenId
     }
-    if (that.data.isNeedLogistics > 0 && postData.peisongType == 'kd') {
+    /*if (that.data.isNeedLogistics > 0 && postData.peisongType == 'kd') {
       if (!that.data.curAddressData) {
         wx.hideLoading();
         wx.showModal({
-          title: '错误',
+          title: '错误1',
           content: '请先设置您的收货地址！',
           showCancel: false
         })
         return;
-      }
-      if (postData.peisongType == 'kd') {
+      }*/
+    if (postData.peisongType == 'kd') {
+        if (!that.data.curAddressData) {
+          wx.hideLoading();
+          wx.showModal({
+            title: '错误1',
+            content: '请先设置您的收货地址！',
+            showCancel: false
+          })
+          return;
+        }
         postData.provinceId = that.data.curAddressData.provinceId;
         postData.cityId = that.data.curAddressData.cityId;
         if (that.data.curAddressData.districtId) {
@@ -116,6 +125,14 @@ Page({
         postData.mobile = that.data.curAddressData.mobile;
         postData.code = that.data.curAddressData.code;
       }      
+    if(postData.peisongType == 'zq'){
+      postData.provinceId = 440000000000;
+      postData.cityId = 440100000000;
+      postData.districtId = 440105000000;
+      postData.address = "新港中路397号";
+      postData.linkMan = "张三";
+      postData.mobile = 13333223322;
+      postData.code = 510000;
     }
     if (that.data.curCoupon) {
       postData.couponId = that.data.curCoupon.id;
@@ -127,7 +144,7 @@ Page({
     WXAPI.orderCreate(postData).then(function (res) {
       if (res.code != 0) {
         wx.showModal({
-          title: '错误',
+          title: '错误2',
           content: res.msg,
           showCancel: false
         })

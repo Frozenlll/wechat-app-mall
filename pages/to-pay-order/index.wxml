@@ -26,7 +26,7 @@
                 <radio value="kd" checked="{{peisongType == 'kd'}}" /> 快递
               </label>
               <label class="radio">
-                <radio value="zq" checked="{{peisongType == 'zq'}}" /> 到店自取
+                <radio value="zq" checked="{{peisongType == 'zq'}}" /> 到机器自取
               </label>
             </radio-group>
         </view>

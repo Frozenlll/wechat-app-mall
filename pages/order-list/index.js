@@ -54,11 +54,18 @@ Page({
           return;
         }
         let _msg = '订单金额: ' + money +' 元'
-        if (res.data.balance > 0) {
+        /*if (res.data.balance > 0) {
           _msg += ',可用余额为 ' + res.data.balance +' 元'
           if (money - res.data.balance > 0) {
             _msg += ',仍需微信支付 ' + (money - res.data.balance) + ' 元'
           }          
+        }*/
+        if(res.data.balance < money){
+          wx.showModal({
+            title: '付款失败',
+            content: '余额不足，请充值',
+          })
+          return;
         }
         if (needScore > 0) {
           _msg += ',并扣除 ' + money + ' 积分'
